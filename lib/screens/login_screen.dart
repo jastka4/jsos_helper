@@ -14,9 +14,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
       body: BlocProvider(
         builder: (context) {
           return LoginBloc(
@@ -24,7 +21,34 @@ class LoginPage extends StatelessWidget {
             userRepository: userRepository,
           );
         },
-        child: LoginForm(),
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                colors: [Colors.red[900], Colors.amber[600]],
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(36.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(
+                    height: 155.0,
+                    child: Image.asset(
+                      'images/logo.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  LoginForm(),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

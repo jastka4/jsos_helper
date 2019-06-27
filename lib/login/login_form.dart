@@ -29,9 +29,8 @@ class _LoginFormState extends State<LoginForm> {
         if (state is LoginFailure) {
           Scaffold.of(context).showSnackBar(
             SnackBar(
-              content: Text('${state.error}'),
-              backgroundColor: Colors.red,
-            ),
+                content: Text('${state.error}'),
+                backgroundColor: Colors.red[700]),
           );
         }
       },
@@ -44,19 +43,48 @@ class _LoginFormState extends State<LoginForm> {
           return Form(
             child: Column(
               children: [
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'username'),
-                  controller: _usernameController,
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 10.0,
+                      right: 10.0,
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: InputDecoration(
+                            icon: Icon(Icons.person_outline),
+                            labelText: 'Username',
+                            border: InputBorder.none,
+                          ),
+                          controller: _usernameController,
+                        ),
+                        Divider(),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            icon: Icon(Icons.lock_outline),
+                            labelText: 'Password',
+                            border: InputBorder.none,
+                          ),
+                          controller: _passwordController,
+                          obscureText: true,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'password'),
-                  controller: _passwordController,
-                  obscureText: true,
-                ),
+                SizedBox(height: 25.0),
                 RaisedButton(
                   onPressed:
                       state is! LoginLoading ? _onLoginButtonPressed : null,
                   child: Text('Login'),
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                 ),
                 Container(
                   child: state is LoginLoading

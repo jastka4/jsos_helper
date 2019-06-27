@@ -51,6 +51,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          // TODO - create custom theme and choose colors
+          ),
       home: BlocBuilder<AuthenticationEvent, AuthenticationState>(
         bloc: BlocProvider.of<AuthenticationBloc>(context),
         builder: (BuildContext context, AuthenticationState state) {
