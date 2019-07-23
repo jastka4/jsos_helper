@@ -20,6 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^0.18.3
+  flutter_secure_storage: ^3.2.1+1
   meta: ^1.1.6
   equatable: ^0.2.6
 
