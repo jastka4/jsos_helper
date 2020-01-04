@@ -78,18 +78,19 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
                 SizedBox(height: 25.0),
-                RaisedButton(
-                  onPressed:
-                      state is! LoginLoading ? _onLoginButtonPressed : null,
-                  child: Text('Login'),
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
                 Container(
+                  height: 35.0,
                   child: state is LoginLoading
                       ? CircularProgressIndicator()
-                      : null,
+                      : RaisedButton(
+                          onPressed: state is! LoginLoading
+                              ? _onLoginButtonPressed
+                              : null,
+                          child: Text('Login'),
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
                 ),
               ],
             ),
