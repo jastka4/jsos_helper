@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'login.dart';
+import 'package:jsos_helper/blocs/login/login.dart';
 
 class LoginForm extends StatefulWidget {
   @override

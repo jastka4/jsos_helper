@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:jsos_helper/repositories/user_repository.dart';
 import 'package:meta/meta.dart';
 
 import 'authentication.dart';
-import 'user_repository.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
