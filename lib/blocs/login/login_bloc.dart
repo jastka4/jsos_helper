@@ -37,4 +37,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
   }
+
+  @override
+  void dispose() {
+    authenticationBloc.dispose();
+    super.dispose();
+  }
 }

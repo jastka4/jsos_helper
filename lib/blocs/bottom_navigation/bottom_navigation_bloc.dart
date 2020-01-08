@@ -34,7 +34,7 @@ class BottomNavigationBloc
 
       if (this.currentIndex == 0) {
         String data = await _getFirstPageData();
-        yield FirstPageLoaded(text: data);
+        yield CalendarPageLoaded(text: data);
       }
       if (this.currentIndex == 1) {
         int data = await _getSecondPageData();

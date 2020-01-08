@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jsos_helper/blocs/bottom_navigation/bottom_navigation.dart';
 import 'package:jsos_helper/ui/components/bottom_navigation.dart';
-import 'package:jsos_helper/ui/screens/calendar_scree.dart';
+import 'package:jsos_helper/ui/screens/calendar_screen.dart';
 import 'package:jsos_helper/ui/screens/splash_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
           if (state is PageLoading) {
             return Center(child: CircularProgressIndicator());
           }
-          if (state is FirstPageLoaded) {
+          if (state is CalendarPageLoaded) {
             return CalendarScreen(title: 'Calendar');
           }
           if (state is SecondPageLoaded) {
