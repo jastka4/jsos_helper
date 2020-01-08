@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:jsos_helper/authentication/authentication.dart';
-import 'package:jsos_helper/authentication/user_repository.dart';
+import 'package:jsos_helper/blocs/authentication/authentication.dart';
+import 'package:jsos_helper/repositories/user_repository.dart';
 import 'package:meta/meta.dart';
 
 import 'login.dart';

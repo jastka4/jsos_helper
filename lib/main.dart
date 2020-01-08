@@ -1,13 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jsos_helper/blocs/authentication/authentication.dart';
+import 'package:jsos_helper/common/loading_indicator.dart';
+import 'package:jsos_helper/repositories/user_repository.dart';
+import 'package:jsos_helper/ui/screens/home_screen.dart';
+import 'package:jsos_helper/ui/screens/login_screen.dart';
+import 'package:jsos_helper/ui/screens/splash_screen.dart';
 
-import 'authentication/authentication.dart';
-import 'authentication/user_repository.dart';
-import 'common/loading_indicator.dart';
-import 'screens/home_screen.dart';
-import 'screens/login_screen.dart';
-import 'screens/splash_screen.dart';
+import 'blocs/bottom_navigation/bottom_navigation_bloc.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -52,8 +53,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          // TODO - create custom theme and choose colors
-          ),
+        // TODO - create custom ui.theme and choose colors
+        primaryColor: Colors.red[900],
+        accentColor: Colors.amber[600],
+      ),
       home: BlocBuilder<AuthenticationEvent, AuthenticationState>(
         bloc: BlocProvider.of<AuthenticationBloc>(context),
         builder: (BuildContext context, AuthenticationState state) {
@@ -61,7 +64,12 @@ class App extends StatelessWidget {
             return SplashScreen();
           }
           if (state is AuthenticationAuthenticated) {
-            return HomeScreen();
+            return BlocProvider(
+              builder: (context) {
+                return BottomNavigationBloc();
+              },
+              child: HomeScreen(),
+            );
           }
           if (state is AuthenticationUnauthenticated) {
             return LoginPage(userRepository: userRepository);

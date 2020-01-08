@@ -1,5 +1,5 @@
-import 'package:meta/meta.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:meta/meta.dart';
 
 class UserRepository {
   final storage = FlutterSecureStorage();

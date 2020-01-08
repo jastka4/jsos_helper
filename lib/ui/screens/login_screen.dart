@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jsos_helper/authentication/authentication.dart';
-import 'package:jsos_helper/authentication/user_repository.dart';
-import 'package:jsos_helper/login/login.dart';
+import 'package:jsos_helper/blocs/authentication/authentication.dart';
+import 'package:jsos_helper/blocs/login/login.dart';
+import 'package:jsos_helper/repositories/user_repository.dart';
+import 'package:jsos_helper/ui/components/login_form.dart';
 
 class LoginPage extends StatelessWidget {
   final UserRepository userRepository;
