@@ -1,11 +1,14 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:jsos_helper/common/db_provider.dart';
 import 'package:jsos_helper/common/event_type_helper.dart';
 import 'package:jsos_helper/models/calendar_event.dart';
 import 'package:jsos_helper/ui/components/custom_card.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+// TODO - use an external API to get holidays per country
 final Map<DateTime, List> _holidays = {
   DateTime(2020, 1, 1): ['New Year\'s Day'],
   DateTime(2020, 1, 6): ['Epiphany'],
@@ -30,33 +33,28 @@ class _CalendarScreenState extends State<CalendarScreen>
   AnimationController _animationController;
   CalendarController _calendarController;
 
+  Future updateCalendarEvents(DateTime first, DateTime last) async {
+    _events = {};
+    final List<CalendarEvent> eventsList =
+        await DBProvider.db.getCalendarEvents(first, last);
+    setState(() {
+      _events = groupBy(eventsList, (event) => event.startDateTime);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     final _selectedDay = DateTime.now();
+    final _firstDayOfMonth = DateTime(_selectedDay.year, _selectedDay.month, 1);
+    final _lastDayOfMonth =
+    DateTime(_selectedDay.year, _selectedDay.month + 1, 0);
 
-    _events = {
-      _selectedDay.add(Duration(days: 3)): [
-        CalendarEvent(
-            name: 'Internetowe bazy danych',
-            classroom: 'C-16, s. L2.6',
-            lecturer: 'Dr inż. Roman Ptak',
-            startDateTime: DateTime(2020, 1, 1, 9, 15),
-            endDateTime: DateTime(2020, 1, 1, 12),
-            eventType: EventType.project),
-        CalendarEvent(
-            name: 'Bezp. syst. i usług inform. 2',
-            classroom: 'C-3, s. 013',
-            lecturer: 'Mgr inż. Przemysław Świercz',
-            startDateTime: DateTime(2020, 1, 1, 11, 15),
-            endDateTime: DateTime(2020, 1, 1, 14),
-            eventType: EventType.project)
-      ],
-    };
-
+    _events = {};
     _selectedEvents = _events[_selectedDay] ?? [];
-    _calendarController = CalendarController();
+    updateCalendarEvents(_firstDayOfMonth, _lastDayOfMonth);
 
+    _calendarController = CalendarController();
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
@@ -82,6 +80,7 @@ class _CalendarScreenState extends State<CalendarScreen>
   void _onVisibleDaysChanged(
       DateTime first, DateTime last, CalendarFormat format) {
     print('CALLBACK: _onVisibleDaysChanged');
+    updateCalendarEvents(first, last);
   }
 
   @override

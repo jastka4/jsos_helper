@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:intl/intl.dart';
 import 'package:jsos_helper/models/calendar_event.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -39,40 +40,52 @@ class DBProvider {
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "jsosHelper.db");
+    String path = join(documentsDirectory.path, 'jsosHelper.db');
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-          await db.execute("CREATE TABLE calendar_event ("
-              "id INTEGER PRIMARY KEY,"
-              "name TEXT,"
-              "classroom TEXT,"
-              "lecturer TEXT,"
-              "start_date_time DATETIME,"
-              "end_date_time DATETIME,"
-              "event_type INTEGER"
-              ")");
-//          newCalendarEvent(events[0]);
-//          newCalendarEvent(events[1]);
-        });
+      await db.execute('CREATE TABLE calendar_event ('
+          'id INTEGER PRIMARY KEY,'
+          'name TEXT,'
+          'classroom TEXT,'
+          'lecturer TEXT,'
+          'start_date_time DATETIME,'
+          'end_date_time DATETIME,'
+          'event_type INTEGER'
+          ')');
+//    TODO - add some sample data
+    });
   }
 
   Future<List<CalendarEvent>> getAllCalendarEvents() async {
     final db = await database;
-    var res = await db.query("calendar_event");
+    var res = await db.query('calendar_event');
     List<CalendarEvent> list =
-    res.isNotEmpty ? res.map((c) => CalendarEvent.fromMap(c)).toList() : [] as Map<DateTime, List>;
+        res.isNotEmpty ? res.map((c) => CalendarEvent.fromMap(c)).toList() : [];
+    return list;
+  }
+
+  Future<List<CalendarEvent>> getCalendarEvents(
+      DateTime first, DateTime last) async {
+    final DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+
+    final db = await database;
+    var res = await db.query('calendar_event',
+        where: 'start_date_time BETWEEN ? AND ?',
+        whereArgs: [dateFormat.format(first), dateFormat.format(last)]);
+    List<CalendarEvent> list =
+        res.isNotEmpty ? res.map((c) => CalendarEvent.fromMap(c)).toList() : [];
     return list;
   }
 
   newCalendarEvent(CalendarEvent calendarEvent) async {
     final db = await database;
     //get the biggest id in the table
-    var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM calendar_event");
-    int id = table.first["id"];
+    var table = await db.rawQuery('SELECT MAX(id)+1 as id FROM calendar_event');
+    int id = table.first['id'];
     //insert to the table using the new id
     var raw = await db.rawInsert(
-        "INSERT Into calendar_event (id,name,lecturer,start_date_time,end_date_time,event_type)"
-            " VALUES (?,?,?,?,?,?)",
+        'INSERT Into calendar_event (id,name,lecturer,start_date_time,end_date_time,event_type)'
+        ' VALUES (?,?,?,?,?,?)',
         [
           id,
           calendarEvent.name,
