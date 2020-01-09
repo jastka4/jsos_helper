@@ -2,13 +2,14 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:jsos_helper/common/db_provider.dart';
 import 'package:jsos_helper/common/event_type_helper.dart';
 import 'package:jsos_helper/models/calendar_event.dart';
+import 'package:jsos_helper/repositories/calendar_repository.dart';
 import 'package:jsos_helper/ui/components/custom_card.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 // TODO - use an external API to get holidays per country
+// TODO - add user repository to get calendars by user?
 final Map<DateTime, List> _holidays = {
   DateTime(2020, 1, 1): ['New Year\'s Day'],
   DateTime(2020, 1, 6): ['Epiphany'],
@@ -32,11 +33,12 @@ class _CalendarScreenState extends State<CalendarScreen>
   List _selectedEvents;
   AnimationController _animationController;
   CalendarController _calendarController;
+  CalendarRepository _calendarRepository;
 
   Future updateCalendarEvents(DateTime first, DateTime last) async {
     _events = {};
     final List<CalendarEvent> eventsList =
-        await DBProvider.db.getCalendarEvents(first, last);
+        await _calendarRepository.getCalendarEvents(first, last);
     setState(() {
       _events = groupBy(eventsList, (event) => event.startDateTime);
     });
@@ -48,7 +50,7 @@ class _CalendarScreenState extends State<CalendarScreen>
     final _selectedDay = DateTime.now();
     final _firstDayOfMonth = DateTime(_selectedDay.year, _selectedDay.month, 1);
     final _lastDayOfMonth =
-    DateTime(_selectedDay.year, _selectedDay.month + 1, 0);
+        DateTime(_selectedDay.year, _selectedDay.month + 1, 0);
 
     _events = {};
     _selectedEvents = _events[_selectedDay] ?? [];
