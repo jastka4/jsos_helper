@@ -20,13 +20,13 @@ class PageLoading extends BottomNavigationState {
   String toString() => 'PageLoading';
 }
 
-class FirstPageLoaded extends BottomNavigationState {
+class CalendarPageLoaded extends BottomNavigationState {
   final String text;
 
-  FirstPageLoaded({@required this.text}) : super([text]);
+  CalendarPageLoaded({@required this.text}) : super([text]);
 
   @override
-  String toString() => 'FirstPageLoaded with text: $text';
+  String toString() => 'CalendarPageLoaded with text: $text';
 }
 
 class SecondPageLoaded extends BottomNavigationState {
