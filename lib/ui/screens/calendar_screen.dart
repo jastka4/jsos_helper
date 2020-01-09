@@ -33,7 +33,7 @@ class _CalendarScreenState extends State<CalendarScreen>
   List _selectedEvents;
   AnimationController _animationController;
   CalendarController _calendarController;
-  CalendarRepository _calendarRepository;
+  CalendarRepository _calendarRepository = CalendarRepository();
 
   Future updateCalendarEvents(DateTime first, DateTime last) async {
     _events = {};
