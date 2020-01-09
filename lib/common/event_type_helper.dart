@@ -19,4 +19,6 @@ class EventTypeHelper {
         return Colors.black;
     }
   }
+
+  // TODO - get event type name by language
 }
