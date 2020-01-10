@@ -12,13 +12,13 @@ class CalendarDao {
   }
 
   Future<List<CalendarEvent>> getCalendarEvents(
-      DateTime first, DateTime last) async {
+      DateTime start, DateTime end) async {
     final DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
 
     final db = await DBProvider.db.database;
     var res = await db.query('calendar_event',
         where: 'start_date_time BETWEEN ? AND ?',
-        whereArgs: [dateFormat.format(first), dateFormat.format(last)]);
+        whereArgs: [dateFormat.format(start), dateFormat.format(end)]);
     List<CalendarEvent> list =
         res.isNotEmpty ? res.map((c) => CalendarEvent.fromMap(c)).toList() : [];
     return list;
