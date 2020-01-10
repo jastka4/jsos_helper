@@ -8,33 +8,17 @@ import 'package:jsos_helper/ui/components/custom_card.dart';
 import 'package:jsos_helper/ui/components/loading_indicator.dart';
 
 // TODO - show grades by semester
-class GradesScreen extends StatefulWidget {
+class GradesScreen extends StatelessWidget {
   final String title;
+  final GradeRepository _gradeRepository = GradeRepository();
 
   GradesScreen({Key key, this.title}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _GradesScreenState();
-}
-
-class _GradesScreenState extends State<GradesScreen> {
-  GradeRepository _gradeRepository = GradeRepository();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
