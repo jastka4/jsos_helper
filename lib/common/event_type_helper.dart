@@ -20,5 +20,5 @@ class EventTypeHelper {
     }
   }
 
-  // TODO - get event type name by language
+// TODO - get event type name by language
 }

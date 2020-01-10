@@ -29,11 +29,20 @@ class CalendarPageLoaded extends BottomNavigationState {
   String toString() => 'CalendarPageLoaded with text: $text';
 }
 
-class SecondPageLoaded extends BottomNavigationState {
+class GradesPageLoaded extends BottomNavigationState {
   final int number;
 
-  SecondPageLoaded({@required this.number}) : super([number]);
+  GradesPageLoaded({@required this.number}) : super([number]);
 
   @override
-  String toString() => 'SecondPageLoaded with number: $number';
+  String toString() => 'GradesPageLoaded with number: $number';
+}
+
+class MessagesPageLoaded extends BottomNavigationState {
+  final int number;
+
+  MessagesPageLoaded({@required this.number}) : super([number]);
+
+  @override
+  String toString() => 'MessagesPageLoaded with number: $number';
 }

@@ -40,7 +40,10 @@ class _CalendarScreenState extends State<CalendarScreen>
     final List<CalendarEvent> eventsList =
         await _calendarRepository.getCalendarEvents(first, last);
     setState(() {
-      _events = groupBy(eventsList, (event) => event.startDateTime);
+      _events = groupBy(
+          eventsList,
+          (event) => DateTime(event.startDateTime.year,
+              event.startDateTime.month, event.startDateTime.day));
     });
   }
 
@@ -50,7 +53,7 @@ class _CalendarScreenState extends State<CalendarScreen>
     final _selectedDay = DateTime.now();
     final _firstDayOfMonth = DateTime(_selectedDay.year, _selectedDay.month, 1);
     final _lastDayOfMonth =
-        DateTime(_selectedDay.year, _selectedDay.month + 1, 0);
+        DateTime(_selectedDay.year, _selectedDay.month + 1, 1);
 
     _events = {};
     _selectedEvents = _events[_selectedDay] ?? [];
@@ -82,7 +85,9 @@ class _CalendarScreenState extends State<CalendarScreen>
   void _onVisibleDaysChanged(
       DateTime first, DateTime last, CalendarFormat format) {
     print('CALLBACK: _onVisibleDaysChanged');
-    updateCalendarEvents(first, last);
+    final _firstDayOfMonth = DateTime(first.year, first.month, 1);
+    final _lastDayOfMonth = DateTime(last.year, last.month + 1, 1);
+    updateCalendarEvents(_firstDayOfMonth, _lastDayOfMonth);
   }
 
   @override

@@ -33,17 +33,22 @@ class BottomNavigationBloc
       yield PageLoading();
 
       if (this.currentIndex == 0) {
-        String data = await _getFirstPageData();
+        String data = await _getCalendarPageData();
         yield CalendarPageLoaded(text: data);
       }
       if (this.currentIndex == 1) {
-        int data = await _getSecondPageData();
-        yield SecondPageLoaded(number: data);
+        int data = await _getGradesPageData();
+        yield GradesPageLoaded(number: data);
+      }
+      if (this.currentIndex == 2) {
+        int data = await _getMessagesPageData();
+        yield MessagesPageLoaded(number: data);
       }
     }
   }
 
-  Future<String> _getFirstPageData() async {
+  // TODO - log proper data
+  Future<String> _getCalendarPageData() async {
 //    String data = firstPageRepository.data;
 //    if (data == null) {
 //      await firstPageRepository.fetchData();
@@ -53,7 +58,7 @@ class BottomNavigationBloc
     return "Testing";
   }
 
-  Future<int> _getSecondPageData() async {
+  Future<int> _getGradesPageData() async {
 //    int data = secondPageRepository.data;
 //    if (data == null) {
 //      await secondPageRepository.fetchData();
@@ -61,5 +66,15 @@ class BottomNavigationBloc
 //    }
 //    return data;
     return 1;
+  }
+
+  Future<int> _getMessagesPageData() async {
+//    int data = secondPageRepository.data;
+//    if (data == null) {
+//      await secondPageRepository.fetchData();
+//      data = secondPageRepository.data;
+//    }
+//    return data;
+    return 2;
   }
 }
