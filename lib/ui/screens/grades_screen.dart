@@ -17,26 +17,16 @@ class GradesScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _GradesScreenState();
 }
 
-class _GradesScreenState extends State<GradesScreen>
-    with TickerProviderStateMixin {
-  AnimationController _animationController;
+class _GradesScreenState extends State<GradesScreen> {
   GradeRepository _gradeRepository = GradeRepository();
 
   @override
   void initState() {
     super.initState();
-
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
-
-    _animationController.forward();
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
     super.dispose();
   }
 
