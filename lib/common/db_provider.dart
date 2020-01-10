@@ -26,7 +26,7 @@ class DBProvider {
       'value INTEGER,'
       'ects INTEGER,'
       'class_name TEXT,'
-      'classroom TEXT,'
+      'date DATETIME,'
       'lecturer TEXT,'
       'semester INTEGER,'
       'event_type INTEGER'

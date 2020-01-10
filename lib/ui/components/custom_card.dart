@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
+  final List<Widget> asideWidgets;
+  final List<Widget> rightWidgets;
   final List<Widget> leftWidgets;
-  final List<Widget> rightRightWidgets;
-  final List<Widget> rightLeftWidgets;
   final Color color;
 
   CustomCard({
+    @required this.asideWidgets,
+    @required this.rightWidgets,
     @required this.leftWidgets,
-    @required this.rightRightWidgets,
-    @required this.rightLeftWidgets,
     @required this.color,
   });
 
@@ -23,7 +23,7 @@ class CustomCard extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Column(
-              children: leftWidgets,
+              children: asideWidgets,
             ),
           ),
           Expanded(
@@ -44,14 +44,14 @@ class CustomCard extends StatelessWidget {
                       flex: 7,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: rightLeftWidgets,
+                        children: leftWidgets,
                       ),
                     ),
                     Expanded(
                         flex: 3,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
-                          children: rightRightWidgets,
+                          children: rightWidgets,
                         ))
                   ],
                 ),

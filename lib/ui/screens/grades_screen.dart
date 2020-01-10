@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:jsos_helper/common/event_type_helper.dart';
 import 'package:jsos_helper/models/grade.dart';
 import 'package:jsos_helper/repositories/grade_repository.dart';
@@ -16,26 +17,16 @@ class GradesScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _GradesScreenState();
 }
 
-class _GradesScreenState extends State<GradesScreen>
-    with TickerProviderStateMixin {
-  AnimationController _animationController;
+class _GradesScreenState extends State<GradesScreen> {
   GradeRepository _gradeRepository = GradeRepository();
 
   @override
   void initState() {
     super.initState();
-
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
-
-    _animationController.forward();
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
     super.dispose();
   }
 
@@ -50,13 +41,15 @@ class _GradesScreenState extends State<GradesScreen>
         children: <Widget>[
           const SizedBox(height: 8.0),
           const SizedBox(height: 8.0),
-          Expanded(child: _buildEventList()),
+          Expanded(child: _buildGradeList()),
         ],
       ),
     );
   }
 
-  Widget _buildEventList() {
+  Widget _buildGradeList() {
+    final DateFormat formatter = DateFormat("yyyy-MM-dd");
+
     return FutureBuilder<List<Grade>>(
       future: _gradeRepository.getAllGrades(),
       builder: (BuildContext context, AsyncSnapshot<List<Grade>> snapshot) {
@@ -70,14 +63,14 @@ class _GradesScreenState extends State<GradesScreen>
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   Grade grade = snapshot.data[index];
-                  return CustomCard(leftWidgets: <Widget>[
+                  return CustomCard(asideWidgets: <Widget>[
                     Text(grade.ects.toString()),
                     Text('ECTS'),
-                  ], rightLeftWidgets: <Widget>[
+                  ], leftWidgets: <Widget>[
                     Text(grade.className),
                     Text(grade.lecturer),
-                  ], rightRightWidgets: <Widget>[
-                    Text(grade.classroom),
+                  ], rightWidgets: <Widget>[
+                    Text(formatter.format(grade.date)),
                     Text(describeEnum(grade.eventType)),
                   ], color: EventTypeHelper.getColor(grade.eventType));
                 });

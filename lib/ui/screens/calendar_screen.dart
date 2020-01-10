@@ -200,13 +200,13 @@ class _CalendarScreenState extends State<CalendarScreen>
     return ListView(
       children: _selectedEvents
           .map(
-            (event) => CustomCard(leftWidgets: <Widget>[
+            (event) => CustomCard(asideWidgets: <Widget>[
               Text(formatter.format(event.startDateTime)),
               Text(formatter.format(event.endDateTime)),
-            ], rightLeftWidgets: <Widget>[
+            ], leftWidgets: <Widget>[
               Text(event.name),
               Text(event.lecturer),
-            ], rightRightWidgets: <Widget>[
+            ], rightWidgets: <Widget>[
               Text(event.classroom),
               Text(describeEnum(event.eventType))
             ], color: EventTypeHelper.getColor(event.eventType)),
