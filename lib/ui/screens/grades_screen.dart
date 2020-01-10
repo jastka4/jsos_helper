@@ -50,13 +50,13 @@ class _GradesScreenState extends State<GradesScreen>
         children: <Widget>[
           const SizedBox(height: 8.0),
           const SizedBox(height: 8.0),
-          Expanded(child: _buildEventList()),
+          Expanded(child: _buildGradeList()),
         ],
       ),
     );
   }
 
-  Widget _buildEventList() {
+  Widget _buildGradeList() {
     return FutureBuilder<List<Grade>>(
       future: _gradeRepository.getAllGrades(),
       builder: (BuildContext context, AsyncSnapshot<List<Grade>> snapshot) {
@@ -70,13 +70,13 @@ class _GradesScreenState extends State<GradesScreen>
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   Grade grade = snapshot.data[index];
-                  return CustomCard(leftWidgets: <Widget>[
+                  return CustomCard(asideWidgets: <Widget>[
                     Text(grade.ects.toString()),
                     Text('ECTS'),
-                  ], rightLeftWidgets: <Widget>[
+                  ], leftWidgets: <Widget>[
                     Text(grade.className),
                     Text(grade.lecturer),
-                  ], rightRightWidgets: <Widget>[
+                  ], rightWidgets: <Widget>[
                     Text(grade.classroom),
                     Text(describeEnum(grade.eventType)),
                   ], color: EventTypeHelper.getColor(grade.eventType));
