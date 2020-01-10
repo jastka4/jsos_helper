@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:jsos_helper/common/event_type_helper.dart';
 import 'package:jsos_helper/models/grade.dart';
 import 'package:jsos_helper/repositories/grade_repository.dart';
@@ -57,6 +58,8 @@ class _GradesScreenState extends State<GradesScreen>
   }
 
   Widget _buildGradeList() {
+    final DateFormat formatter = DateFormat("yyyy-MM-dd");
+
     return FutureBuilder<List<Grade>>(
       future: _gradeRepository.getAllGrades(),
       builder: (BuildContext context, AsyncSnapshot<List<Grade>> snapshot) {
@@ -77,7 +80,7 @@ class _GradesScreenState extends State<GradesScreen>
                     Text(grade.className),
                     Text(grade.lecturer),
                   ], rightWidgets: <Widget>[
-                    Text(grade.classroom),
+                    Text(formatter.format(grade.date)),
                     Text(describeEnum(grade.eventType)),
                   ], color: EventTypeHelper.getColor(grade.eventType));
                 });
