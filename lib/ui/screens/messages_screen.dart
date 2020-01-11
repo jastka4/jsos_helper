@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:jsos_helper/models/message.dart';
 import 'package:jsos_helper/repositories/message_repository.dart';
 import 'package:jsos_helper/ui/components/loading_indicator.dart';
+import 'package:jsos_helper/ui/screens/message_details_screen.dart';
 
 // TODO - add infinite scroll
 class MessagesScreen extends StatelessWidget {
@@ -60,53 +61,61 @@ class MessagesScreen extends StatelessWidget {
     final DateFormat formatterDate = DateFormat("yyyy-MM-dd");
     final DateFormat formatterHours = DateFormat("HH:mm");
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            flex: 7,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  message.from,
-                  overflow: TextOverflow.ellipsis,
-                  style: DefaultTextStyle.of(context).style.apply(
-                        fontSizeFactor: 1.5,
-                        fontWeightDelta: 3,
-                      ),
-                ),
-                Text(
-                  message.subject,
-                  overflow: TextOverflow.ellipsis,
-                  style: DefaultTextStyle.of(context).style.apply(
-                        fontSizeFactor: 1.3,
-                      ),
-                ),
-                Text(
-                  message.content,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: Colors.grey[800]),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              padding: EdgeInsets.only(left: 10),
+    return InkWell(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MessageDetailsScreen(message: message),
+        ),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              flex: 7,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(formatterDate.format(message.date)),
-                  Text(formatterHours.format(message.date)),
+                  Text(
+                    message.from,
+                    overflow: TextOverflow.ellipsis,
+                    style: DefaultTextStyle.of(context).style.apply(
+                          fontSizeFactor: 1.3,
+                          fontWeightDelta: 3,
+                        ),
+                  ),
+                  Text(
+                    message.subject,
+                    overflow: TextOverflow.ellipsis,
+                    style: DefaultTextStyle.of(context).style.apply(
+                          fontSizeFactor: 1.3,
+                        ),
+                  ),
+                  Text(
+                    message.content,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: Colors.grey[800]),
+                  ),
                 ],
               ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 3,
+              child: Container(
+                padding: EdgeInsets.only(left: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(formatterDate.format(message.date)),
+                    Text(formatterHours.format(message.date)),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
