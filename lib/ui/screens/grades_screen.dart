@@ -51,8 +51,14 @@ class GradesScreen extends StatelessWidget {
                     Text(grade.ects.toString()),
                     Text('ECTS'),
                   ], leftWidgets: <Widget>[
-                    Text(grade.className),
-                    Text(grade.lecturer),
+                    Text(
+                      grade.className,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      grade.lecturer,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ], rightWidgets: <Widget>[
                     Text(formatter.format(grade.date)),
                     Text(describeEnum(grade.eventType)),

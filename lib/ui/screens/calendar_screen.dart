@@ -205,9 +205,15 @@ class _CalendarScreenState extends State<CalendarScreen>
               Text(formatter.format(event.endDateTime)),
             ], leftWidgets: <Widget>[
               Text(event.name),
-              Text(event.lecturer),
+              Text(
+                event.lecturer,
+                overflow: TextOverflow.ellipsis,
+              ),
             ], rightWidgets: <Widget>[
-              Text(event.classroom),
+              Text(
+                event.classroom,
+                overflow: TextOverflow.ellipsis,
+              ),
               Text(describeEnum(event.eventType))
             ], color: EventTypeHelper.getColor(event.eventType)),
           )
