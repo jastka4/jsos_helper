@@ -31,7 +31,7 @@ class DBProvider {
       'semester INTEGER,'
       'event_type INTEGER'
       ');';
-
+  
   static const CREATE_MESSAGE_TABLE = 'CREATE TABLE message ('
       'id INTEGER PRIMARY KEY,'
       'from TEXT,'
@@ -40,6 +40,17 @@ class DBProvider {
       'subject TEXT,'
       'content TEXT,'
       'date DATETIME,'
+      ');';
+    
+  static const CREATE_PAYMENT_TABLE = 'CREATE TABLE payment ('
+      'id INTEGER PRIMARY KEY,'
+      'value INTEGER,'
+      'title TEXT,'
+      'description TEXT,'
+      'instalment INTEGER,'
+      'paymentDate DATETIME,'
+      'issueDate DATETIME,'
+      'status INTEGER'
       ');';
 
   Future<Database> get database async {
@@ -58,6 +69,7 @@ class DBProvider {
       await db.execute(CREATE_CALENDAR_EVENT_TABLE);
       await db.execute(CREATE_GRADE_TABLE);
       await db.execute(CREATE_MESSAGE_TABLE);
+      await db.execute(CREATE_PAYMENT_TABLE);
 
 //    TODO - add some sample data
       var events = [

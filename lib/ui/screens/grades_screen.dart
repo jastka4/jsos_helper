@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:jsos_helper/common/event_type_helper.dart';
+import 'package:jsos_helper/common/color_helper.dart';
 import 'package:jsos_helper/models/grade.dart';
 import 'package:jsos_helper/repositories/grade_repository.dart';
 import 'package:jsos_helper/ui/components/custom_card.dart';
@@ -62,7 +62,7 @@ class GradesScreen extends StatelessWidget {
                   ], rightWidgets: <Widget>[
                     Text(formatter.format(grade.date)),
                     Text(describeEnum(grade.eventType)),
-                  ], color: EventTypeHelper.getColor(grade.eventType));
+                  ], color: ColorHelper.getEventColor(grade.eventType));
                 });
           }
         } else {
