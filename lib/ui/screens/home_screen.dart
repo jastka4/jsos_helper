@@ -1,45 +1,98 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jsos_helper/blocs/authentication/authentication.dart';
-import 'package:jsos_helper/blocs/bottom_navigation/bottom_navigation.dart';
-import 'package:jsos_helper/ui/components/bottom_navigation.dart';
-import 'package:jsos_helper/ui/screens/calendar_screen.dart';
-import 'package:jsos_helper/ui/screens/grades_screen.dart';
-import 'package:jsos_helper/ui/screens/messages_screen.dart';
-import 'package:jsos_helper/ui/screens/payments_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final AuthenticationBloc _authenticationBloc =
         BlocProvider.of<AuthenticationBloc>(context);
 
     return Scaffold(
-      body: BlocBuilder<BottomNavigationEvent, BottomNavigationState>(
-        bloc: BlocProvider.of<BottomNavigationBloc>(context),
-        builder: (BuildContext context, BottomNavigationState state) {
-          // TODO - add additional pages
-          if (state is PageLoading) {
-            return Center(child: CircularProgressIndicator());
-          }
-          if (state is CalendarPageLoaded) {
-            return CalendarScreen(title: 'Calendar');
-          }
-          if (state is GradesPageLoaded) {
-            return GradesScreen(title: 'Grades');
-          }
-          if (state is MessagesPageLoaded) {
-            return MessagesScreen(
-              title: 'Messages',
-            );
-          }
-          if (state is PaymentsPageLoaded) {
-            return PaymentsScreen(title: 'Payments');
-          }
-          return Container();
-        },
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            tooltip: 'Logout',
+            onPressed: () {
+              _authenticationBloc.dispatch(LoggedOut());
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: 'Settings',
+            onPressed: () {
+//                _authenticationBloc.dispatch(LoggedOut());
+            },
+          ),
+        ],
       ),
-      bottomNavigationBar: BottomNavigation(),
+      body: Container(
+        margin: EdgeInsets.only(top: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        child: Column(
+          children: <Widget>[
+            Row(children: <Widget>[
+              Expanded(child: _buildNewsFeed(context)),
+            ]),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNewsFeed(BuildContext context) {
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+              child: Text('News',
+                  style: DefaultTextStyle.of(context).style.apply(
+                        fontSizeFactor: 1.3,
+                        fontWeightDelta: 3,
+                      )),
+              padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0)),
+          ListView.separated(
+            padding: EdgeInsets.all(16.0),
+            shrinkWrap: true,
+            separatorBuilder: (context, index) {
+              return Divider();
+            },
+            itemCount: 3,
+            itemBuilder: (BuildContext context, int index) {
+              return _buildNewsCard(); // TODO - get data from the web
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNewsCard() {
+    return InkWell(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('Godziny pracy Sekcji Informatycznej'),
+            const SizedBox(height: 8.0),
+            Text('Data: 07.01.2020', style: TextStyle(color: Colors.grey))
+          ]),
+      onTap: () =>
+          print('News tapped!'), // TODO - use FlutterWebviewPlugin to read news
     );
   }
 }

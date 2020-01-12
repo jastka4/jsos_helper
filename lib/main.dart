@@ -6,8 +6,8 @@ import 'package:jsos_helper/blocs/authentication/authentication.dart';
 import 'package:jsos_helper/blocs/bottom_navigation/bottom_navigation.dart';
 import 'package:jsos_helper/repositories/user_repository.dart';
 import 'package:jsos_helper/ui/components/loading_indicator.dart';
-import 'package:jsos_helper/ui/screens/home_screen.dart';
 import 'package:jsos_helper/ui/screens/login_screen.dart';
+import 'package:jsos_helper/ui/screens/main_screen.dart';
 import 'package:jsos_helper/ui/screens/splash_screen.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
@@ -68,7 +68,7 @@ class App extends StatelessWidget {
               builder: (context) {
                 return BottomNavigationBloc();
               },
-              child: HomeScreen(),
+              child: MainScreen(),
             );
           }
           if (state is AuthenticationUnauthenticated) {
@@ -77,6 +77,7 @@ class App extends StatelessWidget {
           if (state is AuthenticationLoading) {
             return LoadingIndicator();
           }
+          return Container();
         },
       ),
     );

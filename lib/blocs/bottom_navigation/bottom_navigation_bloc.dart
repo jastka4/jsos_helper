@@ -33,22 +33,30 @@ class BottomNavigationBloc
       yield PageLoading();
 
       if (this.currentIndex == 0) {
+        int data = await _getHomePageData();
+        yield HomePageLoaded(number: data);
+      }
+      if (this.currentIndex == 1) {
         String data = await _getCalendarPageData();
         yield CalendarPageLoaded(text: data);
       }
-      if (this.currentIndex == 1) {
+      if (this.currentIndex == 2) {
         int data = await _getGradesPageData();
         yield GradesPageLoaded(number: data);
       }
-      if (this.currentIndex == 2) {
+      if (this.currentIndex == 3) {
         int data = await _getMessagesPageData();
         yield MessagesPageLoaded(number: data);
       }
-      if (this.currentIndex == 3) {
+      if (this.currentIndex == 4) {
         int data = await _getPaymentsPageData();
         yield PaymentsPageLoaded(number: data);
       }
     }
+  }
+
+  Future<int> _getHomePageData() async {
+    return 0;
   }
 
   // TODO - log proper data

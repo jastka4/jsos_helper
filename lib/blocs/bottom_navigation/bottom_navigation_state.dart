@@ -21,6 +21,15 @@ class PageLoading extends BottomNavigationState {
   String toString() => 'PageLoading';
 }
 
+class HomePageLoaded extends BottomNavigationState {
+  final int number;
+
+  HomePageLoaded({@required this.number}) : super([number]);
+
+  @override
+  String toString() => 'HomePageLoaded with number: $number';
+}
+
 class CalendarPageLoaded extends BottomNavigationState {
   final String text;
 

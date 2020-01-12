@@ -89,9 +89,9 @@ class MessagesScreen extends StatelessWidget {
                   Text(
                     message.subject,
                     overflow: TextOverflow.ellipsis,
-                    style: DefaultTextStyle.of(context).style.apply(
-                          fontSizeFactor: 1.3,
-                        ),
+                    style: DefaultTextStyle.of(context)
+                        .style
+                        .apply(fontSizeFactor: 1.3),
                   ),
                   Text(
                     message.content,

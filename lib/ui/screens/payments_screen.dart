@@ -24,8 +24,7 @@ class PaymentsScreen extends StatelessWidget {
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          const SizedBox(height: 8.0),
-          const SizedBox(height: 8.0),
+          const SizedBox(height: 16.0),
           Expanded(child: _buildPaymentList()),
         ],
       ),
