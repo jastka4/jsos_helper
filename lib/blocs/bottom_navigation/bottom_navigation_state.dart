@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+// TODO - Change toString method to log important data
 @immutable
 abstract class BottomNavigationState extends Equatable {
   BottomNavigationState([List props = const []]) : super(props);
@@ -45,4 +46,13 @@ class MessagesPageLoaded extends BottomNavigationState {
 
   @override
   String toString() => 'MessagesPageLoaded with number: $number';
+}
+
+class PaymentsPageLoaded extends BottomNavigationState {
+  final int number;
+
+  PaymentsPageLoaded({@required this.number}) : super([number]);
+
+  @override
+  String toString() => 'PaymentsPageLoaded with number: $number';
 }

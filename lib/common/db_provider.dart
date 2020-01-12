@@ -32,6 +32,17 @@ class DBProvider {
       'event_type INTEGER'
       ');';
 
+  static const CREATE_PAYMENT_TABLE = 'CREATE TABLE payment ('
+      'id INTEGER PRIMARY KEY,'
+      'value INTEGER,'
+      'title TEXT,'
+      'description TEXT,'
+      'instalment INTEGER,'
+      'paymentDate DATETIME,'
+      'issueDate DATETIME,'
+      'status INTEGER'
+      ');';
+
   Future<Database> get database async {
     if (_database != null) return _database;
 

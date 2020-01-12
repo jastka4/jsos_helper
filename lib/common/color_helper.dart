@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jsos_helper/models/calendar_event.dart';
+import 'package:jsos_helper/models/payment.dart';
 
-class EventTypeHelper {
-  static Color getColor(EventType eventType) {
+class ColorHelper {
+  static Color getEventColor(EventType eventType) {
     switch (eventType) {
       case EventType.project:
         return Colors.cyan;
@@ -21,4 +22,18 @@ class EventTypeHelper {
   }
 
 // TODO - get event type name by language
+
+  static Color getPaymentColor(PaymentStatus paymentStatus) {
+    switch (paymentStatus) {
+      case PaymentStatus.pending:
+        return Colors.indigo;
+      case PaymentStatus.complete:
+        return Colors.green;
+      case PaymentStatus.overdue:
+        return Colors.red;
+      case PaymentStatus.open:
+      default:
+        return Colors.grey;
+    }
+  }
 }

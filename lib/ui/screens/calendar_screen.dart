@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:jsos_helper/blocs/authentication/authentication.dart';
-import 'package:jsos_helper/common/event_type_helper.dart';
+import 'package:jsos_helper/common/color_helper.dart';
 import 'package:jsos_helper/models/calendar_event.dart';
 import 'package:jsos_helper/repositories/calendar_repository.dart';
 import 'package:jsos_helper/ui/components/custom_card.dart';
@@ -229,7 +229,7 @@ class _CalendarScreenState extends State<CalendarScreen>
                 overflow: TextOverflow.ellipsis,
               ),
               Text(describeEnum(event.eventType))
-            ], color: EventTypeHelper.getColor(event.eventType)),
+            ], color: ColorHelper.getEventColor(event.eventType)),
           )
           .toList(),
     );

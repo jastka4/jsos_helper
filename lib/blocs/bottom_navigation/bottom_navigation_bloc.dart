@@ -44,6 +44,10 @@ class BottomNavigationBloc
         int data = await _getMessagesPageData();
         yield MessagesPageLoaded(number: data);
       }
+      if (this.currentIndex == 3) {
+        int data = await _getPaymentsPageData();
+        yield PaymentsPageLoaded(number: data);
+      }
     }
   }
 
@@ -76,5 +80,15 @@ class BottomNavigationBloc
 //    }
 //    return data;
     return 2;
+  }
+
+  Future<int> _getPaymentsPageData() async {
+//    int data = secondPageRepository.data;
+//    if (data == null) {
+//      await secondPageRepository.fetchData();
+//      data = secondPageRepository.data;
+//    }
+//    return data;
+    return 3;
   }
 }

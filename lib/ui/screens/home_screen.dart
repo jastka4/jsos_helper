@@ -5,6 +5,7 @@ import 'package:jsos_helper/blocs/bottom_navigation/bottom_navigation.dart';
 import 'package:jsos_helper/ui/components/bottom_navigation.dart';
 import 'package:jsos_helper/ui/screens/calendar_screen.dart';
 import 'package:jsos_helper/ui/screens/grades_screen.dart';
+import 'package:jsos_helper/ui/screens/payments_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -24,9 +25,7 @@ class HomeScreen extends StatelessWidget {
             return CalendarScreen(title: 'Calendar');
           }
           if (state is GradesPageLoaded) {
-            return GradesScreen(
-              title: 'Grades',
-            );
+            return GradesScreen(title: 'Grades');
           }
           if (state is MessagesPageLoaded) {
             return Container(
@@ -39,6 +38,9 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             );
+          }
+          if (state is PaymentsPageLoaded) {
+            return PaymentsScreen(title: 'Payments');
           }
           return Container();
         },
