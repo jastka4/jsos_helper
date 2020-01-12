@@ -5,6 +5,7 @@ import 'package:jsos_helper/blocs/bottom_navigation/bottom_navigation.dart';
 import 'package:jsos_helper/ui/components/bottom_navigation.dart';
 import 'package:jsos_helper/ui/screens/calendar_screen.dart';
 import 'package:jsos_helper/ui/screens/grades_screen.dart';
+import 'package:jsos_helper/ui/screens/messages_screen.dart';
 import 'package:jsos_helper/ui/screens/payments_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -28,15 +29,8 @@ class HomeScreen extends StatelessWidget {
             return GradesScreen(title: 'Grades');
           }
           if (state is MessagesPageLoaded) {
-            return Container(
-              child: Center(
-                child: RaisedButton(
-                  child: Text('logout'),
-                  onPressed: () {
-                    _authenticationBloc.dispatch(LoggedOut());
-                  },
-                ),
-              ),
+            return MessagesScreen(
+              title: 'Messages',
             );
           }
           if (state is PaymentsPageLoaded) {
