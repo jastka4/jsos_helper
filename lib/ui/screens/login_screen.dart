@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jsos_helper/blocs/authentication/authentication.dart';
 import 'package:jsos_helper/blocs/login/login.dart';
+import 'package:jsos_helper/repositories/storage_repository.dart';
 import 'package:jsos_helper/repositories/user_repository.dart';
 import 'package:jsos_helper/ui/components/login_form.dart';
 
 class LoginPage extends StatelessWidget {
-  final UserRepository userRepository;
+  final StorageRepository storageRepository;
+  final UserRepository _userRepository = new UserRepository();
 
-  LoginPage({Key key, @required this.userRepository})
-      : assert(userRepository != null),
+  LoginPage({Key key, @required this.storageRepository})
+      : assert(storageRepository != null),
         super(key: key);
 
   @override
@@ -19,7 +21,7 @@ class LoginPage extends StatelessWidget {
         builder: (context) {
           return LoginBloc(
             authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
-            userRepository: userRepository,
+            userRepository: _userRepository,
           );
         },
         child: Center(

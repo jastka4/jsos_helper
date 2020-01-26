@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:jsos_helper/common/university.dart';
 import 'package:meta/meta.dart';
 
 abstract class AuthenticationEvent extends Equatable {
@@ -12,11 +13,18 @@ class AppStarted extends AuthenticationEvent {
 
 class LoggedIn extends AuthenticationEvent {
   final String token;
+  final String username;
+  final University university;
 
-  LoggedIn({@required this.token}) : super([token]);
+  LoggedIn(
+      {@required this.token,
+      @required this.username,
+      @required this.university})
+      : super([token, username, university]);
 
   @override
-  String toString() => 'LoggedIn { token: $token }';
+  String toString() =>
+      'LoggedIn { token: $token, username: $username, university: $university }';
 }
 
 class LoggedOut extends AuthenticationEvent {

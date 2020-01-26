@@ -58,7 +58,7 @@ class MessagesScreen extends StatelessWidget {
   }
 
   Widget _buildMessageCard(BuildContext context, Message message) {
-    final DateFormat formatterDate = DateFormat("yyyy-MM-dd");
+    final DateFormat formatterDate = DateFormat("dd.MM.yyyy");
     final DateFormat formatterHours = DateFormat("HH:mm");
 
     return InkWell(

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:jsos_helper/models/calendar_event.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -10,6 +9,19 @@ class DBProvider {
 
   static final DBProvider db = DBProvider._();
   static Database _database;
+
+  static const CREATE_USER_TABLE = 'CREATE TABLE user ('
+      'id INTEGER PRIMARY KEY,'
+      'username TEXT,'
+      'full_name TEXT,'
+      'student_number TEXT,'
+      'faculty TEXT,'
+      'subject TEXT,'
+      'degree TEXT,'
+      'specialization TEXT,'
+      'university INTEGER,'
+      'image BLOB'
+      ');';
 
   static const CREATE_CALENDAR_EVENT_TABLE = 'CREATE TABLE calendar_event ('
       'id INTEGER PRIMARY KEY,'
@@ -66,32 +78,11 @@ class DBProvider {
     String path = join(documentsDirectory.path, 'jsosHelper.db');
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
+      await db.execute(CREATE_USER_TABLE);
       await db.execute(CREATE_CALENDAR_EVENT_TABLE);
       await db.execute(CREATE_GRADE_TABLE);
       await db.execute(CREATE_MESSAGE_TABLE);
       await db.execute(CREATE_PAYMENT_TABLE);
-
-//    TODO - add some sample data
-      var events = [
-        {
-          'name': 'Internetowe bazy danych',
-          'classroom': 'C-16, s. L2.6',
-          'lecturer': 'Dr inż. Roman Ptak',
-          'start_date_time': DateTime(2020, 1, 1, 9, 15).toString(),
-          'end_date_time': DateTime(2020, 1, 1, 12).toString(),
-          'event_type': EventType.project.index
-        },
-        {
-          'name': 'Bezp. syst. i usług inform. 2',
-          'classroom': 'C-3, s. 013',
-          'lecturer': 'Mgr inż. Przemysław Świercz',
-          'start_date_time': DateTime(2020, 1, 1, 11, 15).toString(),
-          'end_date_time': DateTime(2020, 1, 1, 14).toString(),
-          'event_type': EventType.laboratory.index
-        },
-        // TODO - add first and last day of the month, create more than one event during a day
-      ];
-      events.forEach((event) => db.insert('calendar_event', event));
     });
   }
 }

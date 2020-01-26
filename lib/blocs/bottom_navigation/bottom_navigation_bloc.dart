@@ -18,8 +18,9 @@ class BottomNavigationBloc
 //      : assert(firstPageRepository != null),
 //        assert(secondPageRepository != null);
 
+  // TODO - clean up
   @override
-  BottomNavigationState get initialState => PageLoading();
+  BottomNavigationState get initialState => HomePageLoaded(number: 1);
 
   @override
   Stream<BottomNavigationState> mapEventToState(

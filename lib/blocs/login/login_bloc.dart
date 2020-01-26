@@ -28,19 +28,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final token = await userRepository.authenticate(
           username: event.username,
           password: event.password,
+          university: event.university,
         );
 
-        authenticationBloc.dispatch(LoggedIn(token: token));
+        authenticationBloc.dispatch(LoggedIn(
+            token: token,
+            username: event.username,
+            university: event.university));
         yield LoginInitial();
       } catch (error) {
         yield LoginFailure(error: error.toString());
       }
     }
-  }
-
-  @override
-  void dispose() {
-    authenticationBloc.dispose();
-    super.dispose();
   }
 }

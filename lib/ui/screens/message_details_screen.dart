@@ -10,7 +10,7 @@ class MessageDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat _formatter = DateFormat("yyyy-MM-dd HH:mm:ss");
+    final DateFormat _formatter = DateFormat("dd.MM.yyyy HH:mm:ss");
     // TODO - use DefaultTextStyle.of(context).style,
     final TextStyle _defaultStyle = TextStyle(color: Colors.black);
 
