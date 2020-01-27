@@ -24,8 +24,7 @@ class PaymentsScreen extends StatelessWidget {
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          const SizedBox(height: 8.0),
-          const SizedBox(height: 8.0),
+          const SizedBox(height: 16.0),
           Expanded(child: _buildPaymentList()),
         ],
       ),
@@ -33,8 +32,6 @@ class PaymentsScreen extends StatelessWidget {
   }
 
   Widget _buildPaymentList() {
-    final DateFormat formatter = DateFormat("yyyy-MM-dd");
-
     return FutureBuilder<List<Payment>>(
       future: _paymentRepository.getAllPayments(),
       builder: (BuildContext context, AsyncSnapshot<List<Payment>> snapshot) {
@@ -61,7 +58,7 @@ class PaymentsScreen extends StatelessWidget {
   Widget _buildPayment(Payment payment) {
     final NumberFormat _numberFormat =
         new NumberFormat.currency(locale: 'pl_PL', symbol: 'zł');
-    final DateFormat _dateFormat = DateFormat("yyyy-MM-dd");
+    final DateFormat _dateFormat = DateFormat("dd.MM.yyyy");
 
     return CustomCard(
       asideWidgets: <Widget>[

@@ -58,7 +58,7 @@ class MessagesScreen extends StatelessWidget {
   }
 
   Widget _buildMessageCard(BuildContext context, Message message) {
-    final DateFormat formatterDate = DateFormat("yyyy-MM-dd");
+    final DateFormat formatterDate = DateFormat("dd.MM.yyyy");
     final DateFormat formatterHours = DateFormat("HH:mm");
 
     return InkWell(
@@ -89,9 +89,9 @@ class MessagesScreen extends StatelessWidget {
                   Text(
                     message.subject,
                     overflow: TextOverflow.ellipsis,
-                    style: DefaultTextStyle.of(context).style.apply(
-                          fontSizeFactor: 1.3,
-                        ),
+                    style: DefaultTextStyle.of(context)
+                        .style
+                        .apply(fontSizeFactor: 1.3),
                   ),
                   Text(
                     message.content,

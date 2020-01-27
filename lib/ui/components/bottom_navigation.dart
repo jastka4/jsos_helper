@@ -16,6 +16,10 @@ class BottomNavigation extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
+                icon: Icon(Icons.home, color: Colors.black),
+                title: Text('Home'),
+              ),
+              BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_today, color: Colors.black),
                 title: Text('Calendar'),
               ),
@@ -30,10 +34,6 @@ class BottomNavigation extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: Icon(Icons.attach_money, color: Colors.black),
                 title: Text('Finances'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.description, color: Colors.black),
-                title: Text('Documents'),
               ),
             ],
             onTap: (index) =>

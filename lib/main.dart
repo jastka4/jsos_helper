@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:jsos_helper/blocs/authentication/authentication.dart';
 import 'package:jsos_helper/blocs/bottom_navigation/bottom_navigation.dart';
-import 'package:jsos_helper/repositories/user_repository.dart';
+import 'package:jsos_helper/repositories/storage_repository.dart';
 import 'package:jsos_helper/ui/components/loading_indicator.dart';
-import 'package:jsos_helper/ui/screens/home_screen.dart';
 import 'package:jsos_helper/ui/screens/login_screen.dart';
+import 'package:jsos_helper/ui/screens/main_screen.dart';
 import 'package:jsos_helper/ui/screens/splash_screen.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
@@ -30,24 +30,25 @@ class SimpleBlocDelegate extends BlocDelegate {
   }
 }
 
+// TODO - initializeDateFormatting
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  final userRepository = UserRepository();
+  final _storageRepository = StorageRepository();
   initializeDateFormatting().then((_) => runApp(
         BlocProvider<AuthenticationBloc>(
           builder: (context) {
-            return AuthenticationBloc(userRepository: userRepository)
+            return AuthenticationBloc(storageRepository: _storageRepository)
               ..dispatch(AppStarted());
           },
-          child: App(userRepository: userRepository),
+          child: App(storageRepository: _storageRepository),
         ),
       ));
 }
 
 class App extends StatelessWidget {
-  final UserRepository userRepository;
+  final StorageRepository storageRepository;
 
-  App({Key key, @required this.userRepository}) : super(key: key);
+  App({Key key, @required this.storageRepository}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,15 +69,16 @@ class App extends StatelessWidget {
               builder: (context) {
                 return BottomNavigationBloc();
               },
-              child: HomeScreen(),
+              child: MainScreen(),
             );
           }
           if (state is AuthenticationUnauthenticated) {
-            return LoginPage(userRepository: userRepository);
+            return LoginPage(storageRepository: storageRepository);
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();
           }
+          return Container();
         },
       ),
     );

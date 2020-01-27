@@ -23,8 +23,7 @@ class GradesScreen extends StatelessWidget {
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          const SizedBox(height: 8.0),
-          const SizedBox(height: 8.0),
+          const SizedBox(height: 16.0),
           Expanded(child: _buildGradeList()),
         ],
       ),
@@ -32,7 +31,7 @@ class GradesScreen extends StatelessWidget {
   }
 
   Widget _buildGradeList() {
-    final DateFormat formatter = DateFormat("yyyy-MM-dd");
+    final DateFormat formatter = DateFormat("dd.MM.yyyy");
 
     return FutureBuilder<List<Grade>>(
       future: _gradeRepository.getAllGrades(),
@@ -48,8 +47,11 @@ class GradesScreen extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   Grade grade = snapshot.data[index];
                   return CustomCard(asideWidgets: <Widget>[
-                    Text(grade.ects.toString()),
-                    Text('ECTS'),
+                    Text(grade.value.toString()),
+                    Text(
+                      '${grade.ects} ECTS',
+                      style: TextStyle(fontSize: 10),
+                    ),
                   ], leftWidgets: <Widget>[
                     Text(
                       grade.className,

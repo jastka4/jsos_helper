@@ -1,33 +1,20 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:jsos_helper/common/university.dart';
+import 'package:jsos_helper/dao/user_dao.dart';
+import 'package:jsos_helper/models/user.dart';
 import 'package:meta/meta.dart';
 
 class UserRepository {
-  final storage = FlutterSecureStorage();
+  final UserDao _userDao = new UserDao();
 
   Future<String> authenticate({
     @required String username,
     @required String password,
+    @required University university,
   }) async {
     // TODO - authenticate users
     await Future.delayed(Duration(seconds: 1));
     return 'token';
   }
 
-  Future<void> deleteToken() async {
-    // delete from keystore/keychain
-    await storage.delete(key: 'jsos_helper');
-    return;
-  }
-
-  Future<void> persistToken(String token) async {
-    // write to keystore/keychain
-    await storage.write(key: 'jsos_helper', value: token);
-    return;
-  }
-
-  Future<bool> hasToken() async {
-    // read from keystore/keychain
-    String value = await storage.read(key: 'jsos_helper');
-    return value != null;
-  }
+  Future<User> getUser(username) => _userDao.getUser(username);
 }
