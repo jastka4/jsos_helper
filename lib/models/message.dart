@@ -28,6 +28,15 @@ class Message {
         date: DateTime.parse(json["date"]),
       );
 
+  factory Message.fromJson(Map<String, dynamic> json) => new Message(
+        from: json["from"],
+        cc: json["cc"],
+        to: json["to"],
+        subject: json["subject"],
+        content: json["content"],
+        date: DateTime.parse(json["date"]),
+      );
+
   Map<String, dynamic> toMap() => {
         "id": id,
         "from": from,

@@ -3,15 +3,23 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:jsos_helper/models/message.dart';
 import 'package:jsos_helper/repositories/message_repository.dart';
+import 'package:jsos_helper/repositories/storage_repository.dart';
 import 'package:jsos_helper/ui/components/loading_indicator.dart';
 import 'package:jsos_helper/ui/screens/message_details_screen.dart';
 
 // TODO - add infinite scroll
 class MessagesScreen extends StatelessWidget {
   final String title;
-  final MessageRepository _messageRepository = MessageRepository();
+  final MessageRepository _messageRepository;
+  final StorageRepository storageRepository;
 
-  MessagesScreen({Key key, this.title}) : super(key: key);
+  MessagesScreen({
+    Key key,
+    @required this.title,
+    @required this.storageRepository,
+  })  : _messageRepository =
+            MessageRepository(storageRepository: storageRepository),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {

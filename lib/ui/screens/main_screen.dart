@@ -36,7 +36,10 @@ class MainScreen extends StatelessWidget {
             );
           }
           if (state is MessagesPageLoaded) {
-            return MessagesScreen(title: 'Messages');
+            return MessagesScreen(
+              title: 'Messages',
+              storageRepository: storageRepository,
+            );
           }
           if (state is PaymentsPageLoaded) {
             return PaymentsScreen(
