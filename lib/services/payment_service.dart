@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:jsos_helper/common/global_constants.dart';
 import 'package:jsos_helper/common/university.dart';
@@ -9,10 +8,8 @@ import 'package:jsos_helper/models/payment.dart';
 class PaymentService {
   static const URL = GlobalConstants.BASE_API_URL + '/payments';
 
-  Future<List<Payment>> fetchPayments({
-    @required String username,
-    @required University university,
-  }) async {
+  Future<List<Payment>> fetchPayments(
+      String username, University university) async {
     final response = await http.post(
       URL,
       headers: {

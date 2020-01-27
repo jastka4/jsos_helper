@@ -8,10 +8,11 @@ import 'package:jsos_helper/ui/components/login_form.dart';
 
 class LoginPage extends StatelessWidget {
   final StorageRepository storageRepository;
-  final UserRepository _userRepository = new UserRepository();
+  final UserRepository _userRepository;
 
   LoginPage({Key key, @required this.storageRepository})
       : assert(storageRepository != null),
+        _userRepository = UserRepository(storageRepository: storageRepository),
         super(key: key);
 
   @override

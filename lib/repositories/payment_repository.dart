@@ -13,12 +13,9 @@ class PaymentRepository {
   PaymentRepository({@required this.storageRepository});
 
   Future<List<Payment>> getAllPayments() async {
-    String _username = await storageRepository.getUsername();
-    University _university = await storageRepository.getUniversity();
-    return await _paymentService.fetchPayments(
-      username: _username,
-      university: _university,
-    );
+    String username = await storageRepository.getUsername();
+    University university = await storageRepository.getUniversity();
+    return await _paymentService.fetchPayments(username, university);
 //    _paymentDao.getAllPayments();
   }
 }

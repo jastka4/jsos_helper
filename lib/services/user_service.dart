@@ -36,10 +36,7 @@ class UserService {
     }
   }
 
-  Future<User> fetchUserData({
-    @required String username,
-    @required University university,
-  }) async {
+  Future<User> fetchUserData(String username, University university) async {
     final response = await http.post(
       USER_URL,
       headers: {

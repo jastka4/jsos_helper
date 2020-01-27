@@ -24,12 +24,9 @@ class UserRepository {
       );
 
   Future<User> getUser() async {
-    String _username = await storageRepository.getUsername();
-    University _university = await storageRepository.getUniversity();
-    User user = await _userService.fetchUserData(
-      username: _username,
-      university: _university,
-    );
+    String username = await storageRepository.getUsername();
+    University university = await storageRepository.getUniversity();
+    User user = await _userService.fetchUserData(username, university);
     return user;
 //    _userDao.getUser(username);
   }
