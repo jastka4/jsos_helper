@@ -30,7 +30,10 @@ class MainScreen extends StatelessWidget {
             );
           }
           if (state is GradesPageLoaded) {
-            return GradesScreen(title: 'Grades');
+            return GradesScreen(
+              title: 'Grades',
+              storageRepository: storageRepository,
+            );
           }
           if (state is MessagesPageLoaded) {
             return MessagesScreen(title: 'Messages');

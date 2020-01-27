@@ -4,15 +4,23 @@ import 'package:intl/intl.dart';
 import 'package:jsos_helper/common/color_helper.dart';
 import 'package:jsos_helper/models/grade.dart';
 import 'package:jsos_helper/repositories/grade_repository.dart';
+import 'package:jsos_helper/repositories/storage_repository.dart';
 import 'package:jsos_helper/ui/components/custom_card.dart';
 import 'package:jsos_helper/ui/components/loading_indicator.dart';
 
 // TODO - show grades by semester
 class GradesScreen extends StatelessWidget {
   final String title;
-  final GradeRepository _gradeRepository = GradeRepository();
+  final GradeRepository _gradeRepository;
+  final StorageRepository storageRepository;
 
-  GradesScreen({Key key, this.title}) : super(key: key);
+  GradesScreen({
+    Key key,
+    @required this.title,
+    @required this.storageRepository,
+  })  : _gradeRepository =
+            GradeRepository(storageRepository: storageRepository),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
