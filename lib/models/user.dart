@@ -17,20 +17,31 @@ class User {
     this.id,
     this.specialization,
     this.image,
-    this.fullName,
-    this.studentNumber,
-    this.faculty,
-    this.subject,
+    this.username,
     this.degree,
-    @required this.username,
+    @required this.fullName,
+    @required this.studentNumber,
+    @required this.faculty,
+    @required this.subject,
     @required this.university,
   });
 
-  factory User.fromMap(Map<String, dynamic> json) => new User(
-        id: json["id"],
-        username: json["username"],
-        fullName: json["full_name"],
-        studentNumber: json["student_number"],
+  factory User.fromMap(Map<String, dynamic> map) => new User(
+        id: map["id"],
+        username: map["username"],
+        fullName: map["full_name"],
+        studentNumber: map["student_number"],
+        faculty: map["faculty"],
+        subject: map["subject"],
+        degree: map["degree"],
+        specialization: map["specialization"],
+        university: University.values[map["university"]],
+        image: map["image"],
+      );
+
+  factory User.fromJson(Map<String, dynamic> json) => new User(
+        fullName: json["fullName"],
+        studentNumber: json["studentNumber"],
         faculty: json["faculty"],
         subject: json["subject"],
         degree: json["degree"],

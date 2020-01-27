@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jsos_helper/common/storage_provider.dart';
+import 'package:jsos_helper/common/university.dart';
 
 class StorageRepository {
   final _storage =
@@ -18,4 +19,11 @@ class StorageRepository {
   Future<String> getToken() => _storage.getToken();
 
   Future<bool> hasToken() => _storage.hasToken();
+
+  Future<void> setUniversity(University university) =>
+      _storage.setUniversity(university);
+
+  Future<void> deleteUniversity() => _storage.deleteUniversity();
+
+  Future<University> getUniversity() => _storage.getUniversity();
 }

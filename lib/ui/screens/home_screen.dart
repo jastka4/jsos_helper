@@ -8,18 +8,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jsos_helper/blocs/authentication/authentication.dart';
 import 'package:jsos_helper/common/university.dart';
 import 'package:jsos_helper/models/user.dart';
+import 'package:jsos_helper/repositories/storage_repository.dart';
 import 'package:jsos_helper/repositories/user_repository.dart';
 import 'package:jsos_helper/ui/components/loading_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  final StorageRepository storageRepository;
+
+  HomeScreen({Key key, @required this.storageRepository})
+      : assert(storageRepository != null),
+        super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _HomeScreenState();
+  State<StatefulWidget> createState() =>
+      _HomeScreenState(storageRepository: storageRepository);
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final UserRepository _userRepository = new UserRepository();
+  static const EMPTY_TEXT = '---';
+
+  final StorageRepository storageRepository;
+  final UserRepository _userRepository;
+
+  _HomeScreenState({@required this.storageRepository})
+      : _userRepository =
+            new UserRepository(storageRepository: storageRepository);
 
   @override
   void initState() {
@@ -105,11 +118,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildProfileInfo(AuthenticationBloc _authenticationBloc) {
     return FutureBuilder<User>(
-        future: _userRepository.getUser('pwr230115'),
+        future: _userRepository.getUser(),
         builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
           if (snapshot.hasData) {
-            User _user = snapshot.data;
-            Uint8List _decodedImage = Base64Decoder().convert(_user.image);
+            final User _user = snapshot.data;
+            var image;
+            if (_user.image != null) {
+              Uint8List _decodedImage = Base64Decoder().convert(_user.image);
+              image = MemoryImage(_decodedImage);
+            } else {
+              image = AssetImage('images/avatar_placeholder.png');
+            }
 
             return Card(
               child: Padding(
@@ -124,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           .apply(fontSizeFactor: 1.3, fontWeightDelta: 3),
                     ),
                     const SizedBox(height: 16.0),
-                    CircleAvatar(backgroundImage: MemoryImage(_decodedImage)),
+                    CircleAvatar(backgroundImage: image),
                     Text('Name:',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(_user.fullName),
@@ -139,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Divider(),
                     Text('Degree:',
                         style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(_user.degree),
+                    Text(_user.degree != null ? _user.degree : EMPTY_TEXT),
                     Divider(),
                     Text('Faculty:',
                         style: TextStyle(fontWeight: FontWeight.bold)),
@@ -151,7 +170,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     Divider(),
                     Text('Sepcialization:',
                         style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(_user.specialization),
+                    Text(_user.specialization != null
+                        ? _user.specialization
+                        : EMPTY_TEXT),
                   ],
                 ),
               ),

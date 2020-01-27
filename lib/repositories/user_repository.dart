@@ -1,20 +1,36 @@
 import 'package:jsos_helper/common/university.dart';
 import 'package:jsos_helper/dao/user_dao.dart';
 import 'package:jsos_helper/models/user.dart';
+import 'package:jsos_helper/repositories/storage_repository.dart';
+import 'package:jsos_helper/services/user_service.dart';
 import 'package:meta/meta.dart';
 
 class UserRepository {
   final UserDao _userDao = new UserDao();
+  final UserService _userService = new UserService();
+  final StorageRepository storageRepository;
+
+  UserRepository({@required this.storageRepository});
 
   Future<String> authenticate({
     @required String username,
     @required String password,
     @required University university,
-  }) async {
-    // TODO - authenticate users
-    await Future.delayed(Duration(seconds: 1));
-    return 'token';
-  }
+  }) =>
+      _userService.loginUser(
+        username: username,
+        password: password,
+        university: university,
+      );
 
-  Future<User> getUser(username) => _userDao.getUser(username);
+  Future<User> getUser() async {
+    String _username = await storageRepository.getUsername();
+    University _university = await storageRepository.getUniversity();
+    User user = await _userService.fetchUserData(
+      username: _username,
+      university: _university,
+    );
+    return user;
+//    _userDao.getUser(username);
+  }
 }

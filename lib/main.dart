@@ -69,7 +69,7 @@ class App extends StatelessWidget {
               builder: (context) {
                 return BottomNavigationBloc();
               },
-              child: MainScreen(),
+              child: MainScreen(storageRepository: storageRepository),
             );
           }
           if (state is AuthenticationUnauthenticated) {
