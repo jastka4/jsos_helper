@@ -28,10 +28,21 @@ class Payment {
         value: json["value"],
         title: json["title"],
         description: json["description"],
-        instalment: json["instalment"],
+        instalment: int.parse(json["instalment"]),
         paymentDate: DateTime.parse(json["paymentDate"]),
         issueDate: DateTime.parse(json["issueDate"]),
-        status: PaymentStatus.values[json["status"]],
+        status: PaymentStatus.values[int.parse(json["status"])],
+      );
+
+  factory Payment.fromJson(Map<String, dynamic> json) => new Payment(
+        value: double.parse(json["value"]),
+        title: json["title"],
+        description: json["description"],
+        instalment:
+            json["instalment"] != null ? int.parse(json["instalment"]) : null,
+        paymentDate: DateTime.parse(json["paymentDate"]),
+        issueDate: DateTime.parse(json["issueDate"]),
+        status: PaymentStatus.values[int.parse(json["status"])],
       );
 
   Map<String, dynamic> toMap() => {

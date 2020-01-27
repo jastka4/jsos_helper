@@ -39,6 +39,7 @@ class CustomCard extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.only(left: 10),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Expanded(
                       flex: 7,
