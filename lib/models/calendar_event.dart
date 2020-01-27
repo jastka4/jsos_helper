@@ -42,6 +42,16 @@ class CalendarEvent {
         eventType: EventType.values[json["event_type"]],
       );
 
+  factory CalendarEvent.fromJson(Map<String, dynamic> json) =>
+      new CalendarEvent(
+        name: json["name"],
+        classroom: json["classroom"],
+        lecturer: json["lecturer"],
+        startDateTime: DateTime.parse(json["startDateTime"]),
+        endDateTime: DateTime.parse(json["endDateTime"]),
+        eventType: EventType.values[int.parse(json["eventType"])],
+      );
+
   Map<String, dynamic> toMap() => {
         "id": id,
         "name": name,

@@ -24,7 +24,10 @@ class MainScreen extends StatelessWidget {
             return HomeScreen(storageRepository: storageRepository);
           }
           if (state is CalendarPageLoaded) {
-            return CalendarScreen(title: 'Calendar');
+            return CalendarScreen(
+              title: 'Calendar',
+              storageRepository: storageRepository,
+            );
           }
           if (state is GradesPageLoaded) {
             return GradesScreen(title: 'Grades');

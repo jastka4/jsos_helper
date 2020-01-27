@@ -31,8 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final UserRepository _userRepository;
 
   _HomeScreenState({@required this.storageRepository})
-      : _userRepository =
-            new UserRepository(storageRepository: storageRepository);
+      : _userRepository = UserRepository(storageRepository: storageRepository);
 
   @override
   void initState() {
