@@ -7,7 +7,6 @@ class PaymentDao {
     var res = await db.query('payment');
     List<Payment> list =
         res.isNotEmpty ? res.map((c) => Payment.fromMap(c)).toList() : [];
-    print(list);
     return list;
   }
 }

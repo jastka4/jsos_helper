@@ -28,10 +28,10 @@ class Payment {
         value: json["value"],
         title: json["title"],
         description: json["description"],
-        instalment: int.parse(json["instalment"]),
+        instalment: json["instalment"],
         paymentDate: DateTime.parse(json["paymentDate"]),
         issueDate: DateTime.parse(json["issueDate"]),
-        status: PaymentStatus.values[int.parse(json["status"])],
+        status: PaymentStatus.values[json["status"]],
       );
 
   factory Payment.fromJson(Map<String, dynamic> json) => new Payment(

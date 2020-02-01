@@ -1,3 +1,4 @@
+import 'package:jsos_helper/common/connection_status_singleton.dart';
 import 'package:jsos_helper/common/university.dart';
 import 'package:jsos_helper/dao/message_dao.dart';
 import 'package:jsos_helper/models/message.dart';
@@ -16,7 +17,10 @@ class MessageRepository {
   Future<List<Message>> getAllMessages() async {
     String username = await storageRepository.getUsername();
     University university = await storageRepository.getUniversity();
-    return _messageService.fetchMessages(username, university);
-//    _messageDao.getAllMessages();
+    if (await ConnectionStatusSingleton.getInstance().checkConnection()) {
+      return _messageService.fetchMessages(username, university);
+    } else {
+      return _messageDao.getAllMessages();
+    }
   }
 }

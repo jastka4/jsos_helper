@@ -1,3 +1,4 @@
+import 'package:jsos_helper/common/connection_status_singleton.dart';
 import 'package:jsos_helper/common/university.dart';
 import 'package:jsos_helper/dao/grade_dao.dart';
 import 'package:jsos_helper/models/grade.dart';
@@ -15,8 +16,11 @@ class GradeRepository {
   Future<List<Grade>> getAllGrades() async {
     String username = await storageRepository.getUsername();
     University university = await storageRepository.getUniversity();
-    return _gradeService.fetchGrades(username, university);
-//    _gradeDao.getAllGrades();
+    if (await ConnectionStatusSingleton.getInstance().checkConnection()) {
+      return _gradeService.fetchGrades(username, university);
+    } else {
+      return _gradeDao.getAllGrades();
+    }
   }
 
   Future<List<Grade>> getGradesBySemester(int semester) =>

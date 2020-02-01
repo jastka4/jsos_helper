@@ -1,3 +1,4 @@
+import 'package:jsos_helper/common/connection_status_singleton.dart';
 import 'package:jsos_helper/common/university.dart';
 import 'package:jsos_helper/dao/user_dao.dart';
 import 'package:jsos_helper/models/user.dart';
@@ -26,8 +27,10 @@ class UserRepository {
   Future<User> getUser() async {
     String username = await storageRepository.getUsername();
     University university = await storageRepository.getUniversity();
-    User user = await _userService.fetchUserData(username, university);
-    return user;
-//    _userDao.getUser(username);
+    if (await ConnectionStatusSingleton.getInstance().checkConnection()) {
+      return await _userService.fetchUserData(username, university);
+    } else {
+      return _userDao.getUser(username);
+    }
   }
 }

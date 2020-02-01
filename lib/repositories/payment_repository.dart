@@ -1,3 +1,4 @@
+import 'package:jsos_helper/common/connection_status_singleton.dart';
 import 'package:jsos_helper/common/university.dart';
 import 'package:jsos_helper/dao/payment_dao.dart';
 import 'package:jsos_helper/models/payment.dart';
@@ -15,7 +16,10 @@ class PaymentRepository {
   Future<List<Payment>> getAllPayments() async {
     String username = await storageRepository.getUsername();
     University university = await storageRepository.getUniversity();
-    return await _paymentService.fetchPayments(username, university);
-//    _paymentDao.getAllPayments();
+    if (await ConnectionStatusSingleton.getInstance().checkConnection()) {
+      return await _paymentService.fetchPayments(username, university);
+    } else {
+      return _paymentDao.getAllPayments();
+    }
   }
 }
