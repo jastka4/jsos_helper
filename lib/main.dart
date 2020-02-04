@@ -41,9 +41,9 @@ void main() {
   final _storageRepository = StorageRepository();
   initializeDateFormatting().then((_) => runApp(
         BlocProvider<AuthenticationBloc>(
-          builder: (context) {
+          create: (context) {
             return AuthenticationBloc(storageRepository: _storageRepository)
-              ..dispatch(AppStarted());
+              ..add(AppStarted());
           },
           child: App(storageRepository: _storageRepository),
         ),
@@ -63,7 +63,7 @@ class App extends StatelessWidget {
         primaryColor: Colors.red[900],
         accentColor: Colors.amber[600],
       ),
-      home: BlocBuilder<AuthenticationEvent, AuthenticationState>(
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         bloc: BlocProvider.of<AuthenticationBloc>(context),
         builder: (BuildContext context, AuthenticationState state) {
           if (state is AuthenticationUninitialized) {
@@ -71,7 +71,7 @@ class App extends StatelessWidget {
           }
           if (state is AuthenticationAuthenticated) {
             return BlocProvider(
-              builder: (context) {
+              create: (context) {
                 return BottomNavigationBloc();
               },
               child: MainScreen(storageRepository: storageRepository),

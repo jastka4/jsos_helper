@@ -31,7 +31,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           university: event.university,
         );
 
-        authenticationBloc.dispatch(LoggedIn(
+        authenticationBloc.add(LoggedIn(
             token: token,
             username: event.username,
             university: event.university));

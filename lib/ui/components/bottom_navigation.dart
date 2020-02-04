@@ -8,7 +8,7 @@ class BottomNavigation extends StatelessWidget {
     final _bottomNavigationBloc =
         BlocProvider.of<BottomNavigationBloc>(context);
 
-    return BlocBuilder<BottomNavigationEvent, BottomNavigationState>(
+    return BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
         bloc: _bottomNavigationBloc,
         builder: (BuildContext context, BottomNavigationState state) {
           return BottomNavigationBar(
@@ -37,7 +37,7 @@ class BottomNavigation extends StatelessWidget {
               ),
             ],
             onTap: (index) =>
-                _bottomNavigationBloc.dispatch(PageTapped(index: index)),
+                _bottomNavigationBloc.add(PageTapped(index: index)),
           );
         });
   }

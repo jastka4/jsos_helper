@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: const Icon(Icons.exit_to_app),
           tooltip: 'Logout',
           onPressed: () {
-            _authenticationBloc.dispatch(LoggedOut());
+            _authenticationBloc.add(LoggedOut());
           },
         ),
         IconButton(

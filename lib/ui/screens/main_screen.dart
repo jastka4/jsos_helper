@@ -14,7 +14,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<BottomNavigationEvent, BottomNavigationState>(
+      body: BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
         bloc: BlocProvider.of<BottomNavigationBloc>(context),
         builder: (BuildContext context, BottomNavigationState state) {
           if (state is PageLoading) {

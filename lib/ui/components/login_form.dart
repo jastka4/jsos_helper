@@ -36,7 +36,7 @@ class _LoginFormState extends State<LoginForm> {
     final _loginBloc = BlocProvider.of<LoginBloc>(context);
 
     _onLoginButtonPressed() {
-      _loginBloc.dispatch(LoginButtonPressed(
+      _loginBloc.add(LoginButtonPressed(
         username: _usernameController.text,
         password: _passwordController.text,
         university: _currentUniversity,
@@ -60,7 +60,7 @@ class _LoginFormState extends State<LoginForm> {
           );
         }
       },
-      child: BlocBuilder<LoginEvent, LoginState>(
+      child: BlocBuilder<LoginBloc, LoginState>(
         bloc: _loginBloc,
         builder: (
           BuildContext context,

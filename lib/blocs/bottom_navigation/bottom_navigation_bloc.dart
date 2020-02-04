@@ -26,7 +26,7 @@ class BottomNavigationBloc
   Stream<BottomNavigationState> mapEventToState(
       BottomNavigationEvent event) async* {
     if (event is AppStarted) {
-      this.dispatch(PageTapped(index: this.currentIndex));
+      this.add(PageTapped(index: this.currentIndex));
     }
     if (event is PageTapped) {
       this.currentIndex = event.index;
