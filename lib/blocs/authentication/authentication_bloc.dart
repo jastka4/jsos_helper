@@ -32,6 +32,7 @@ class AuthenticationBloc
       yield AuthenticationLoading();
       await storageRepository.setToken(event.token);
       await storageRepository.setUsername(event.username);
+      await storageRepository.setUniversity(event.university);
       yield AuthenticationAuthenticated();
     }
 

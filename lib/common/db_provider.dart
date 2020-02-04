@@ -45,13 +45,13 @@ class DBProvider {
       ');';
 
   static const CREATE_MESSAGE_TABLE = 'CREATE TABLE message ('
-      'id INTEGER PRIMARY KEY,'
-      'from TEXT,'
-      'to TEXT,'
-      'cc TEXT,'
-      'subject TEXT,'
-      'content TEXT,'
-      'date DATETIME,'
+      '"id" INTEGER PRIMARY KEY,'
+      '"from" TEXT,'
+      '"to" TEXT,'
+      '"cc" TEXT,'
+      '"subject" TEXT,'
+      '"content" TEXT,'
+      '"date" DATETIME'
       ');';
 
   static const CREATE_PAYMENT_TABLE = 'CREATE TABLE payment ('

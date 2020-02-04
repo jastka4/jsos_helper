@@ -7,6 +7,7 @@ import 'package:jsos_helper/blocs/authentication/authentication.dart';
 import 'package:jsos_helper/common/color_helper.dart';
 import 'package:jsos_helper/models/calendar_event.dart';
 import 'package:jsos_helper/repositories/calendar_repository.dart';
+import 'package:jsos_helper/repositories/storage_repository.dart';
 import 'package:jsos_helper/ui/components/custom_card.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -22,11 +23,17 @@ final Map<DateTime, List> _holidays = {
 
 class CalendarScreen extends StatefulWidget {
   final String title;
+  final StorageRepository storageRepository;
 
-  CalendarScreen({Key key, this.title}) : super(key: key);
+  CalendarScreen({
+    Key key,
+    @required this.title,
+    @required this.storageRepository,
+  }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _CalendarScreenState();
+  State<StatefulWidget> createState() =>
+      _CalendarScreenState(storageRepository: storageRepository);
 }
 
 class _CalendarScreenState extends State<CalendarScreen>
@@ -35,7 +42,13 @@ class _CalendarScreenState extends State<CalendarScreen>
   List _selectedEvents;
   AnimationController _animationController;
   CalendarController _calendarController;
-  CalendarRepository _calendarRepository = CalendarRepository();
+
+  final StorageRepository storageRepository;
+  final CalendarRepository _calendarRepository;
+
+  _CalendarScreenState({@required this.storageRepository})
+      : _calendarRepository =
+            CalendarRepository(storageRepository: storageRepository);
 
   Future updateCalendarEvents(DateTime first, DateTime last) async {
     _events = {};

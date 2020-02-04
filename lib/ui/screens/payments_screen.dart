@@ -5,15 +5,23 @@ import 'package:intl/intl.dart';
 import 'package:jsos_helper/common/color_helper.dart';
 import 'package:jsos_helper/models/payment.dart';
 import 'package:jsos_helper/repositories/payment_repository.dart';
+import 'package:jsos_helper/repositories/storage_repository.dart';
 import 'package:jsos_helper/ui/components/custom_card.dart';
 import 'package:jsos_helper/ui/components/loading_indicator.dart';
 
 // TODO - add payment details screen?
 class PaymentsScreen extends StatelessWidget {
   final String title;
-  final PaymentRepository _paymentRepository = PaymentRepository();
+  final PaymentRepository _paymentRepository;
+  final StorageRepository storageRepository;
 
-  PaymentsScreen({Key key, this.title}) : super(key: key);
+  PaymentsScreen({
+    Key key,
+    @required this.title,
+    @required this.storageRepository,
+  })  : _paymentRepository =
+            new PaymentRepository(storageRepository: storageRepository),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {

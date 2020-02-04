@@ -32,6 +32,16 @@ class Grade {
         eventType: EventType.values[json["event_type"]],
       );
 
+  factory Grade.fromJson(Map<String, dynamic> json) => new Grade(
+        value: double.parse(json["value"]),
+        ects: int.parse(json["ects"]),
+        className: json["className"],
+        date: DateTime.parse(json["date"]),
+        lecturer: json["lecturer"],
+        semester: int.parse(json["semester"]),
+        eventType: EventType.values[int.parse(json["eventType"])],
+      );
+
   Map<String, dynamic> toMap() => {
         "id": id,
         "value": value,

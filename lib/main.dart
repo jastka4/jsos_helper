@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:jsos_helper/blocs/authentication/authentication.dart';
 import 'package:jsos_helper/blocs/bottom_navigation/bottom_navigation.dart';
+import 'package:jsos_helper/common/connection_status_singleton.dart';
 import 'package:jsos_helper/repositories/storage_repository.dart';
 import 'package:jsos_helper/ui/components/loading_indicator.dart';
 import 'package:jsos_helper/ui/screens/login_screen.dart';
@@ -32,6 +33,10 @@ class SimpleBlocDelegate extends BlocDelegate {
 
 // TODO - initializeDateFormatting
 void main() {
+  ConnectionStatusSingleton connectionStatus =
+      ConnectionStatusSingleton.getInstance();
+  connectionStatus.initialize();
+
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final _storageRepository = StorageRepository();
   initializeDateFormatting().then((_) => runApp(
@@ -69,7 +74,7 @@ class App extends StatelessWidget {
               builder: (context) {
                 return BottomNavigationBloc();
               },
-              child: MainScreen(),
+              child: MainScreen(storageRepository: storageRepository),
             );
           }
           if (state is AuthenticationUnauthenticated) {
