@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
 
-import 'global_constants.dart';
-
 class ConnectionStatusSingleton {
   static final ConnectionStatusSingleton _singleton =
       new ConnectionStatusSingleton._internal();

@@ -1,9 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:jsos_helper/blocs/authentication/authentication.dart';
 import 'package:jsos_helper/common/color_helper.dart';
 import 'package:jsos_helper/models/calendar_event.dart';
 import 'package:jsos_helper/repositories/calendar_repository.dart';
@@ -107,21 +105,9 @@ class _CalendarScreenState extends State<CalendarScreen>
 
   @override
   Widget build(BuildContext context) {
-    final AuthenticationBloc _authenticationBloc =
-        BlocProvider.of<AuthenticationBloc>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            tooltip: 'Logout',
-            onPressed: () {
-              _authenticationBloc.dispatch(LoggedOut());
-            },
-          ),
-        ],
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,

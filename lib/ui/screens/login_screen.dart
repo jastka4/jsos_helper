@@ -41,7 +41,7 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   SizedBox(
-                    height: 155.0,
+                    height: 225.0,
                     child: Image.asset(
                       'images/logo.png',
                       fit: BoxFit.contain,
