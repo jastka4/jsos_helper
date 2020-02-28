@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'login.dart';
+import 'package:jsos_helper/blocs/login/login.dart';
+import 'package:jsos_helper/common/university.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -12,6 +12,25 @@ class _LoginFormState extends State<LoginForm> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  List<DropdownMenuItem<University>> _dropDownMenuItems;
+  University _currentUniversity;
+
+  @override
+  void initState() {
+    _dropDownMenuItems = _getDropDownMenuItems();
+    _currentUniversity = _dropDownMenuItems[0].value;
+    super.initState();
+  }
+
+  List<DropdownMenuItem<University>> _getDropDownMenuItems() {
+    List<DropdownMenuItem<University>> items = new List();
+    for (University university in University.values) {
+      items.add(new DropdownMenuItem(
+          value: university, child: new Text(university.name)));
+    }
+    return items;
+  }
+
   @override
   Widget build(BuildContext context) {
     final _loginBloc = BlocProvider.of<LoginBloc>(context);
@@ -20,7 +39,14 @@ class _LoginFormState extends State<LoginForm> {
       _loginBloc.dispatch(LoginButtonPressed(
         username: _usernameController.text,
         password: _passwordController.text,
+        university: _currentUniversity,
       ));
+    }
+
+    _onChangedDropDownItem(University selectedUniversity) {
+      setState(() {
+        _currentUniversity = selectedUniversity;
+      });
     }
 
     return BlocListener(
@@ -55,6 +81,14 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     child: Column(
                       children: <Widget>[
+                        DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            value: _currentUniversity,
+                            items: _dropDownMenuItems,
+                            onChanged: _onChangedDropDownItem,
+                          ),
+                        ),
+                        Divider(),
                         TextFormField(
                           decoration: InputDecoration(
                             icon: Icon(Icons.person_outline),

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:jsos_helper/authentication/authentication.dart';
-import 'package:jsos_helper/authentication/user_repository.dart';
+import 'package:jsos_helper/blocs/authentication/authentication.dart';
+import 'package:jsos_helper/repositories/user_repository.dart';
 import 'package:meta/meta.dart';
 
 import 'login.dart';
@@ -28,9 +28,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final token = await userRepository.authenticate(
           username: event.username,
           password: event.password,
+          university: event.university,
         );
 
-        authenticationBloc.dispatch(LoggedIn(token: token));
+        authenticationBloc.dispatch(LoggedIn(
+            token: token,
+            username: event.username,
+            university: event.university));
         yield LoginInitial();
       } catch (error) {
         yield LoginFailure(error: error.toString());
